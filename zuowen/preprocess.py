@@ -23,7 +23,7 @@ def main():
         help="日志存放位置")
     parser.add_argument(
         "--data_path",
-        default=os.path.join(absolute_path, "data", ""),
+        default=os.path.join(absolute_path, "data"),
         type=str,
         required=False,
         help="数据集存放位置")
