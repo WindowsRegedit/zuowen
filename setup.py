@@ -2,7 +2,7 @@ import os
 import shutil
 from setuptools import setup, find_packages
 
-__version__ = "2022.6.24"
+__version__ = "2022.6.25"
 
 # Thanks to
 # https://stackoverflow.com/questions/72513435/how-can-i-create-my-setup-py-with-non-python-files-and-no-python-files-folders
@@ -63,5 +63,5 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     include_package_data=True,
-    package_data={'zuowen': ['config/*', "vocab/*"]},
+    package_data={'zuowen': ['config/*', "vocab/*", "ui/markdown/*"]},
 )
