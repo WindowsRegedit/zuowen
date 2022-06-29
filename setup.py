@@ -2,7 +2,7 @@ import os
 import shutil
 from setuptools import setup, find_packages
 
-__version__ = "2022.6.29"
+__version__ = "2022.6.29r2"
 
 # Thanks to
 # https://stackoverflow.com/questions/72513435/how-can-i-create-my-setup-py-with-non-python-files-and-no-python-files-folders
