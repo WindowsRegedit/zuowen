@@ -1,23 +1,5 @@
 import streamlit as st
-with st.spinner("正在初始化环境中"):
-    from transformers import GPT2LMHeadModel, CpmTokenizer
 
-    from zuowen.utils import *
-
-    os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3,4,5,6,7,8,9"
-    cuda = torch.cuda.is_available()
-    device = "cuda" if cuda else "cpu"
-    tokenizer = CpmTokenizer(
-        vocab_file=os.path.join(
-            absolute_path,
-            "vocab",
-            "chinese_vocab.model"))
-    eod_id = tokenizer.convert_tokens_to_ids("<eod>")
-    sep_id = tokenizer.sep_token_id
-    unk_id = tokenizer.unk_token_id
-    model = GPT2LMHeadModel.from_pretrained("WindowsRegedit/zuowen")
-    model.eval()
-    model = model.to(device)
 
 st.title("作文生成器")
 st.header("吴凡的作文生成器")
@@ -26,7 +8,7 @@ context = st.text_input("作文上文", placeholder="家乡的四季,最美不�
 max_len = st.slider(
     "作文长度",
     min_value=100,
-    max_value=1000,
+    max_value=5000,
     step=50,
     value=200,
     help="作文长度")
@@ -108,5 +90,23 @@ if st.checkbox("禁用CUDA"):
     st.warning("您禁用了CUDA(GPU).这会导致预测速度变慢！")
 if st.button("开始自动写作"):
     with st.spinner("正在生成中，请稍等......"):
+        from transformers import GPT2LMHeadModel, CpmTokenizer
+
+        from zuowen.utils import *
+
+        os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3,4,5,6,7,8,9"
+        cuda = torch.cuda.is_available()
+        device = "cuda" if cuda else "cpu"
+        tokenizer = CpmTokenizer(
+            vocab_file=os.path.join(
+                absolute_path,
+                "vocab",
+                "chinese_vocab.model"))
+        eod_id = tokenizer.convert_tokens_to_ids("<eod>")
+        sep_id = tokenizer.sep_token_id
+        unk_id = tokenizer.unk_token_id
+        model = GPT2LMHeadModel.from_pretrained("WindowsRegedit/zuowen")
+        model.eval()
+        model = model.to(device)
         res = gen_zuowen(title, context, max_len)
     result = st.text_area(title, res, height=200)
